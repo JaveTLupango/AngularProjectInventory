@@ -1,7 +1,9 @@
+using AngularProjectInventory.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +28,20 @@ namespace AngularProjectInventory
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddDbContext<usersDBContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DevConnection"))
+            );
+            services.AddDbContext<OrderDBContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("DevConnection"))
+           );
+            services.AddDbContext<OrderDetailsDBContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("DevConnection"))
+           );
+            services.AddDbContext<productDBContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("DevConnection")) 
+           );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
